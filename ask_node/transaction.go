@@ -2,15 +2,10 @@ package main
 
 import (
 	"context"
-	"crypto/ecdsa"
 	"fmt"
 	"log"
-	"github.com/astra-x/go-ethereum/common"
-	"github.com/astra-x/go-ethereum/crypto"
 	"github.com/astra-x/go-ethereum/ethclient"
-	//"time"
-	"math/big"
-	"github.com/astra-x/go-ethereum/core/types"
+
 	"time"
 	"flag"
 )
@@ -35,8 +30,6 @@ func getTransactionCount(client *ethclient.Client, ch chan<-uint)  {
 }
 
 func main() {
-	tps:= flag.Int("tps", 100, "tps speed from the node")
-	test_size := flag.Int("test_size", 60000, "transaction test size")
 	rpc_addr := flag.String("rpc_addr", "http://127.0.0.1:8545", "Node RPC address and open port")
 	flag.Parse()
 

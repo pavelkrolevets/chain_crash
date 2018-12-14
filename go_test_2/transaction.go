@@ -5,24 +5,18 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 	"log"
-	"math/big"
-
 	"github.com/astra-x/go-ethereum/common"
 	"github.com/astra-x/go-ethereum/crypto"
 	"github.com/astra-x/go-ethereum/ethclient"
+	//"time"
+	"math/big"
 	"github.com/astra-x/go-ethereum/core/types"
 	"time"
 	"flag"
 )
 
-const (
-	HTTP = "http://127.0.0.1:8545"
-	address_to = "0x5a4AB87DEafb195fe50855A4f78D6f44Fbf54F21"
-	priv_key = "e70ff21e6a479352c3b844923919049d53b8d7cce308428a8a1dba048e47ea1a"
-	)
 
-
-func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, tps int, test_size int)  {
+func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, ch chan<-string, tps int, test_size int, check_txs bool)  {
 	//signedTxs := make(chan *types.Transaction,1)
 	privateKey, err := crypto.HexToECDSA(priv_k)
 	if err != nil {
@@ -79,32 +73,67 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, t
 		nonce = nonce + 1
 		select {
 		case <-ticker.C:
+			ch <- signedTx.Hash().Hex()
 		}
-
-		//fmt.Println("Balance  :", balance)
-		//fmt.Println(nonce)
 	}
 	reciept_count:=0
-	for _, hash :=range tx_receipts {
-		reciept, err:=client.TransactionReceipt(context.Background(), hash)
-		reciept_count++
-		if err != nil {
-			log.Fatal(err)
+	if check_txs {
+		for _, hash := range tx_receipts {
+			reciept, err := client.TransactionReceipt(context.Background(), hash)
+			reciept_count++
+			if err != nil {
+				log.Fatal(err)
+			}
+			fmt.Println("Transaction receipt: ", reciept.TxHash.Hex(), " # ", reciept_count)
 		}
-		fmt.Println("Transaction receipt: ", reciept.TxHash.Hex(), " # ", reciept_count)
 	}
 }
 
 func main() {
 	tps:= flag.Int("tps", 100, "tps speed from the node")
 	test_size := flag.Int("test_size", 60000, "transaction test size")
+	rpc_addr := flag.String("rpc_addr", "http://127.0.0.1:8545", "Node RPC address and open port")
+	address_to := flag.String("address_to","0xd08a05283ad35600ab448c08db31a7c3797c8319","ETH address to send ")
+	priv_key :=  flag.String("priv_key", "d81952d9449a63525e2ef643e1b4ef7be924ac5a37602f00677c9940fa20d4cf","Sender private key ")
+	check_txs :=  flag.Bool("check_txs", false,"Check if all sent transactions are in the blockchain ")
+
 	flag.Parse()
 
-	client1, err := ethclient.Dial(HTTP)
+	tx_ch1 := make(chan string, 1)
+	//tx_ch2 := make(chan string, 1)
+	//tx_ch3 := make(chan string, 1)
+
+	client1, err := ethclient.Dial(*rpc_addr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	sendTransactions(client1, address_to, priv_key, *tps, *test_size)
+	//client2, err := ethclient.Dial(HTTP)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+
+	//client3, err := ethclient.Dial(HTTP)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//client4, err := ethclient.Dial(HTTP)
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+
+	go sendTransactions(client1, *address_to, *priv_key, tx_ch1, *tps, *test_size, *check_txs)
+	//go sendTransactions(client3, address_to2, priv_key2, tx_ch2)
+	//go sendTransactions(client4, address_to3, priv_key3, tx_ch3)
+
+
+	for {
+		select {
+		default:
+			<-tx_ch1
+			//<-tx_ch2
+			//<-tx_ch3
+		}
 
 	}
+}

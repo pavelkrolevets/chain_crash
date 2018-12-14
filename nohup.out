@@ -2,3 +2,73 @@
 
 2018/12/13 19:00:12 Post http://127.0.0.1:8545: dial tcp 127.0.0.1:8545: connect: connection refused
 2018/12/13 19:00:12 Post http://127.0.0.1:8545: dial tcp 127.0.0.1:8545: connect: connection refused
+
+
+Sender:   d08a05283ad35600ab448c08db31a7c3797c8319  balance  1000000000304010000
+Sender:   c29553e4d9b2d1ffde5d89763dcc6bfaa0e006c3  balance  999999999419880000
+2018/12/13 23:31:59 EOF
+2018/12/13 23:31:59 EOF
+
+
+Sender:   c29553e4d9b2d1ffde5d89763dcc6bfaa0e006c3  balance  999999999419880000
+Sender:   d08a05283ad35600ab448c08db31a7c3797c8319  balance  1000000000304010000
+flag provided but not defined: -rpc_addr
+Usage of ./go_test_3/transaction:
+  -test_size int
+    	transaction test size (default 60000)
+  -tps int
+    	tps speed from the node (default 100)
+flag provided but not defined: -rpc_addr
+Usage of ./go_test_4/transaction:
+  -test_size int
+    	transaction test size (default 60000)
+  -tps int
+    	tps speed from the node (default 100)
+2018/12/13 23:37:14 EOF
+2018/12/13 23:37:14 EOF
+
+
+
+
+Sender:   d08a05283ad35600ab448c08db31a7c3797c8319  balance  1000000000304010000
+Sender:   ced5f831063851714cfb2bfa791e0146ec6416fa  balance  1000000000118290000
+Sender:   5a4ab87deafb195fe50855a4f78d6f44fbf54f21  balance  1000000000167980000
+Sender:   c29553e4d9b2d1ffde5d89763dcc6bfaa0e006c3  balance  999999999409720000
+
+
+Sender:   5a4ab87deafb195fe50855a4f78d6f44fbf54f21  balance  1000000000167980000
+Sender:   c29553e4d9b2d1ffde5d89763dcc6bfaa0e006c3  balance  999999999384730000
+
+
+Sender:   d08a05283ad35600ab448c08db31a7c3797c8319  balance  1000000000304000000
+Sender:   ced5f831063851714cfb2bfa791e0146ec6416fa  balance  1000000000118290000
+
+Sender:   c29553e4d9b2d1ffde5d89763dcc6bfaa0e006c3  balance  999999999361120000
+invalid value "" for flag -tps: strconv.ParseInt: parsing "": invalid syntax
+Usage of ./go_test_1/transaction:
+  -address_to string
+    	ETH address to send  (default "0xd08a05283ad35600ab448c08db31a7c3797c8319")
+  -check_txs
+    	Check if all sent transactions are in the blockchain 
+  -priv_key string
+    	Sender private key  (default "d81952d9449a63525e2ef643e1b4ef7be924ac5a37602f00677c9940fa20d4cf")
+  -rpc_addr string
+    	Node RPC address and open port (default "http://127.0.0.1:8545")
+  -test_size int
+    	transaction test size (default 60000)
+  -tps int
+    	tps speed from the node (default 100)
+invalid value "" for flag -tps: strconv.ParseInt: parsing "": invalid syntax
+Usage of ./go_test_2/transaction:
+  -address_to string
+    	ETH address to send  (default "0xd08a05283ad35600ab448c08db31a7c3797c8319")
+  -check_txs
+    	Check if all sent transactions are in the blockchain 
+  -priv_key string
+    	Sender private key  (default "d81952d9449a63525e2ef643e1b4ef7be924ac5a37602f00677c9940fa20d4cf")
+  -rpc_addr string
+    	Node RPC address and open port (default "http://127.0.0.1:8545")
+  -test_size int
+    	transaction test size (default 60000)
+  -tps int
+    	tps speed from the node (default 100)
