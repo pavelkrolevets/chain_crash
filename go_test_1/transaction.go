@@ -13,6 +13,8 @@ import (
 	"github.com/astra-x/go-ethereum/core/types"
 	"time"
 	"flag"
+	"os"
+	"io"
 )
 
 
@@ -78,6 +80,12 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, c
 		}
 		reciept_count:=0
 	if check_txs {
+		file, err := os.Create("client1_receipts.txt")
+		if err != nil {
+			log.Fatal(err)
+		}
+		mw := io.MultiWriter(os.Stdout, file)
+		defer file.Close()
 		for _, hash := range tx_receipts {
 			reciept, err := client.TransactionReceipt(context.Background(), hash)
 			reciept_count++
@@ -85,6 +93,7 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, c
 				log.Fatal(err)
 			}
 			fmt.Println("Transaction receipt: ", reciept.TxHash.Hex(), " # ", reciept_count)
+			fmt.Fprintln(mw, "Transaction receipt: ", reciept.TxHash.Hex(), " # ", reciept_count)
 		}
 	}
 	}
