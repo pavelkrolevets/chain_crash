@@ -47,6 +47,28 @@ case $i in
 esac
 done
 
+cat << "EOF"
+
+
+             #####     #####   #
+             #    #   #        #
+             #####    #        #
+             #    #   #        #
+             #    #   #        #     #
+             #####     #####   #######
+
+       T                                    \`.    T
+       |    T     .--------------.___________) \   |    T
+       !    |     |//////////////|___________[ ]   !  T |
+            !     `--------------'           ) (      | !
+                                         mn  '-'      !
+
+
+
+EOF
+
+
+
 echo "Run test size ${TEST_SIZE} with ${TPS} on each node. RPC address ${RPC_ADDR}. Checking txs ${CHECK_TX}"
 
 if [ ${threads} == 1 ]
