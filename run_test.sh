@@ -51,31 +51,31 @@ echo "Run test size ${TEST_SIZE} with ${TPS} on each node. RPC address ${RPC_ADD
 
 if [ ${threads} == 1 ]
 then
-    nohup ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} &
+    ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} > /dev/null 2>&1 &
     ./ask_node/transaction -rpc_addr=${RPC_ADDR}
 fi
 
 
 if [ ${threads} == 2 ]
 then
-    nohup ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} &
-    nohup ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} &
+    ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} > /dev/null 2>&1 &
+    ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} > /dev/null 2>&1 &
     ./ask_node/transaction -rpc_addr=${RPC_ADDR}
 fi
 
 if [ ${threads} == 3 ]
 then
-    nohup ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} &
-    nohup ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} &
-    nohup ./go_test_3/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to3} -priv_key=${priv_key3} &
+    ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} > /dev/null 2>&1 &
+    ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} > /dev/null 2>&1 &
+    ./go_test_3/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to3} -priv_key=${priv_key3} > /dev/null 2>&1 &
     ./ask_node/transaction -rpc_addr=${RPC_ADDR}
 fi
 
 if [ ${threads} == 4 ]
 then
-    nohup ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} &
-    nohup ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} &
-    nohup ./go_test_3/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to3} -priv_key=${priv_key3} &
-    nohup ./go_test_4/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to4} -priv_key=${priv_key4} &
+    ./go_test_1/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to1} -priv_key=${priv_key1} > /dev/null 2>&1 &
+    ./go_test_2/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to2} -priv_key=${priv_key2} > /dev/null 2>&1 &
+    ./go_test_3/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to3} -priv_key=${priv_key3} > /dev/null 2>&1 &
+    ./go_test_4/transaction -tps=${TPS} -test_size=${TEST_SIZE} -rpc_addr=${RPC_ADDR} -check_txs=${CHECK_TX} -address_to=${address_to4} -priv_key=${priv_key4} > /dev/null 2>&1 &
     ./ask_node/transaction -rpc_addr=${RPC_ADDR}
 fi
