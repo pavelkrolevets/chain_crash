@@ -2,30 +2,40 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"github.com/astra-x/go-ethereum/ethclient"
 
 	"time"
 	"flag"
+	"fmt"
 )
 
 
-func getTransactionCount(client *ethclient.Client, ch chan<-uint)  {
+func getTransactionCount(client *ethclient.Client)  {
+
 	ticker:= time.NewTicker(time.Second)
+
 	for {
-		blockhash, err:= client.BlockByNumber(context.Background(), nil)
+
+		blockhash, err:= client.BlockByNumber(context.Background(),nil)
+
 		if err != nil {
 			log.Fatal(err)
 		}
+
 		proc_txs, err:= client.TransactionCount(context.Background(),blockhash.Hash())
+
 		if err != nil {
 			log.Fatal(err)
 		}
 		select {
 		case <-ticker.C:
+			//ch <- proc_txs
+			fmt.Println("Transactions in the block #", blockhash.NumberU64(), " :", proc_txs, "\n",
+				"Block time :", blockhash.Time(), "\n",
+					"Validator", blockhash.Validator().Hex())
 		}
-		ch <- proc_txs
+
 	}
 }
 
@@ -33,23 +43,23 @@ func main() {
 	rpc_addr := flag.String("rpc_addr", "http://127.0.0.1:8545", "Node RPC address and open port")
 	flag.Parse()
 
-	tx_block := make(chan uint, 1)
+	//tx_block := make(chan uint, 1)
 
 	client1, err := ethclient.Dial(*rpc_addr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-
-	go getTransactionCount(client1, tx_block)
-
-
-
 	for {
-		select {
-		case out := <-tx_block:
-			fmt.Println("Transactions in the last block:  ",out)
-		}
-
+		getTransactionCount(client1)
 	}
+
+
+	//for {
+	//	select {
+	//	case out := <-tx_block:
+	//		fmt.Println("Transactions in the last block:  ",out)
+	//	}
+	//
+	//}
 }
