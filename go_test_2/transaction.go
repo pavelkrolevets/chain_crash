@@ -55,7 +55,7 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, c
 	ticker:= time.NewTicker(time.Duration((1000/tps))*time.Millisecond)
 	for i:=0; i < test_size;i++ {
 
-		tx := types.NewTransaction(0, nonce, toAddress, value, gasLimit, gasPrice, data)
+		tx := types.NewTransaction(nonce, toAddress, value, gasLimit, gasPrice, data)
 		chainID, err := client.NetworkID(context.Background())
 		if err != nil {
 			log.Fatal(err)
