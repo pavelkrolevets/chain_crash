@@ -21,20 +21,22 @@ func getTransactionCount(client *ethclient.Client)  {
 
 		if err != nil {
 			log.Fatal(err)
+			fmt.Println(err)
 		}
 
 		proc_txs, err:= client.TransactionCount(context.Background(),blockhash.Hash())
 
 		if err != nil {
 			log.Fatal(err)
+			fmt.Println(err)
 		}
 		select {
 		case <-ticker.C:
 			//ch <- proc_txs
 			fmt.Println("Transactions in the block #", blockhash.NumberU64(), " :", proc_txs, "\n",
-				"Block time :", blockhash.Time(), "\n",
-					"Validator", blockhash.Validator().Hex())
-		}
+				"Block time :", blockhash.Time(),
+					"Validator :", blockhash.Validator().Hex())
+			}
 
 	}
 }
