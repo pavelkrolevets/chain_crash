@@ -1,6 +1,6 @@
 # ETH private chain-crash test
 
-This is test to check maximum speed of a private ehthereum blockchain, built on a geth client.
+This is test to check maximum speed of a private ehthereum blockchain, built on top of go ethereum client.
 It uses 4 clients which send specified amount of balance transactions each second between prefunded accounts.
 
 ##### 1. Confugure prefunded client accounts in `config.cfg`. 
