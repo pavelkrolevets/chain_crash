@@ -5,7 +5,8 @@ It uses 4 clients which send specified amount of balance transactions each secon
 
 ##### 1. Confugure prefunded client accounts in `config.cfg`. Note - it should be prefunded otherwise there will be an error.
  
-##### 2. Build go instances `./build.sh` . Not that everything should be inside `$GOPATH` to build it successfully.
+##### 2. Build go instances `./build.sh` . 
+Note: everything should be inside `$GOPATH` to build it successfully.
 
 ##### 3. Run test `./run_test.sh` with parameters:
 
