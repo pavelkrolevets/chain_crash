@@ -5,12 +5,12 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 	"log"
-	"github.com/astra-x/go-ethereum/common"
-	"github.com/astra-x/go-ethereum/crypto"
-	"github.com/astra-x/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/ethclient"
 	//"time"
 	"math/big"
-	"github.com/astra-x/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/core/types"
 	"time"
 	"flag"
 	"os"
@@ -35,7 +35,7 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, c
 		log.Fatal(err)
 	}
 	value := big.NewInt(10000)      // in wei
-	gasLimit := big.NewInt(210000) // in units
+	gasLimit := uint64(210000) // in units
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 
 	if err != nil {
@@ -57,11 +57,12 @@ func sendTransactions(client *ethclient.Client, addr_to string, priv_k string, c
 
 		tx := types.NewTransaction(nonce, toAddress, value, gasLimit, gasPrice, data)
 		chainID, err := client.NetworkID(context.Background())
+		log.Println("Chain ID", chainID)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
+		signedTx, err := types.SignTx(tx, types.HomesteadSigner{}, privateKey)
 		//fmt.Println("signed tx", signedTx)
 		if err != nil {
 			log.Fatal(err)

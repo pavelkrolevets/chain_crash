@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"log"
-	"github.com/astra-x/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/ethclient"
 
 	"time"
 	"flag"
@@ -35,7 +35,7 @@ func getTransactionCount(client *ethclient.Client)  {
 			//ch <- proc_txs
 			fmt.Println("Transactions in the block #", blockhash.NumberU64(), " :", proc_txs, "\n",
 				"Block time :", blockhash.Time(),
-					"Validator :", blockhash.Validator().Hex())
+					"Validator :", blockhash.Header().Coinbase.Hex())
 			}
 
 	}
